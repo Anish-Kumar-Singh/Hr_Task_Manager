@@ -1,8 +1,37 @@
-const API = "http://localhost:5000/api";
+const API = "/api";
 
 // ✅ STORE USERS FOR NAME MAPPING
 let usersList = [];
+async function signup(){
 
+  console.log("Signup clicked");
+
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+  const role = document.getElementById("role").value;
+
+  if(!name || !email || !password){
+    alert("Fill all fields");
+    return;
+  }
+
+  const res = await fetch("/api/auth/signup",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body: JSON.stringify({name,email,password,role})
+  });
+
+  const data = await res.json();
+
+  if(!res.ok){
+    alert(data.message || "Signup failed");
+    return;
+  }
+
+  alert("Signup success");
+  window.location="index.html";
+}
 // ================= LOGIN =================
 async function login(){
 
