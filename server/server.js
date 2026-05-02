@@ -13,11 +13,11 @@ app.use("/api/auth", require("./routes/auth"));
 app.use("/api/projects", require("./routes/projects"));
 app.use("/api/tasks", require("./routes/tasks"));
 
-// ✅ FIXED FRONTEND PATH
-app.use(express.static(path.join(__dirname, "client")));
+// ✅ FIXED PATH (IMPORTANT)
+app.use(express.static(path.join(__dirname, "server/client")));
 
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "client", "index.html"));
+  res.sendFile(path.join(__dirname, "server/client/index.html"));
 });
 
 app.listen(process.env.PORT, () => console.log("Server running"));
