@@ -146,7 +146,7 @@
       display: grid;
       grid-template-columns: 1fr 1.1fr;
       gap: 32px;
-      align-items: start;
+      align-items: stretch;
     }
 
     /* cards: all inherit glass-feel but solid white inside = clean */
@@ -268,12 +268,18 @@
       color: #2c9a88;
     }
 
-    /* task list */
+    /* task list - enhanced for scroll + flexible fill */
     #taskList {
       list-style: none;
       display: flex;
       flex-direction: column;
       gap: 16px;
+      /* scroll & fill remaining space */
+      flex: 1;
+      overflow-y: auto;
+      padding-right: 4px;
+      max-height: 100%;
+      margin-bottom: 0;
     }
     #taskList li {
       background: #fefefe;
@@ -362,6 +368,66 @@
       height: 1px;
       background: #e0ede8;
     }
+
+    /* ========== ADDITIONAL STYLES: Member Workspace & All Tasks FULL BODY VERTICAL FILL ========== */
+    /* Right column container becomes a flexible column that matches full height of left card */
+    .right-stack {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      gap: 0;               /* preserve exact original spacing (no extra gap added) */
+    }
+
+    /* Allow tasks-card to consume ALL remaining vertical space so that Member Workspace
+       and All Tasks together fill the whole parent height — making both sections fully stretch */
+    .tasks-card {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      /* inner spacing and overflow handling to make All Tasks fill body */
+    }
+
+    /* Make the header inside tasks-card fixed, and task list scrollable in remaining area */
+    .tasks-header {
+      flex-shrink: 0;
+      margin-bottom: 24px;
+    }
+
+    /* Ensure the tasks list container uses all available height of the card */
+    .tasks-card ul {
+      flex: 1;
+      overflow-y: auto;
+      margin-top: 0;
+    }
+
+    /* Additionally, memberPanel naturally stays at top, tasks-card fills all leftover space
+       → Member Workspace stays compact, All Tasks card expands to fill remaining body region.
+       Both sections visually fill the entire right column height (identical to admin panel height) */
+    #memberPanel {
+      flex-shrink: 0;
+      /* no extra margin-bottom, stays as in original */
+    }
+
+    /* Ensure dashboard grid rows stretch equally without any whitespace at bottom */
+    .dashboard-grid {
+      align-items: stretch;
+    }
+
+    /* Keep scrollbar comfortable inside tasks list */
+    #taskList::-webkit-scrollbar {
+      width: 6px;
+    }
+    #taskList::-webkit-scrollbar-track {
+      background: #eef3f0;
+      border-radius: 10px;
+    }
+    #taskList::-webkit-scrollbar-thumb {
+      background: #b9cfc4;
+      border-radius: 10px;
+    }
+    #taskList::-webkit-scrollbar-thumb:hover {
+      background: #93b7a8;
+    }
   </style>
 </head>
 <body>
@@ -420,7 +486,7 @@
         </div>
       </div>
 
-      <!-- RIGHT COLUMN: member + tasks -->
+      <!-- RIGHT COLUMN: member + tasks (both will fill full vertical space) -->
       <div class="right-stack">
         <div id="memberPanel">
           <div class="section-head" style="margin-bottom: 16px;">
@@ -455,7 +521,7 @@
             <h3 style="background: linear-gradient(120deg, #144e63, #267c6b); background-clip: text; -webkit-background-clip: text; color: transparent;">All Tasks</h3>
           </div>
           <ul id="taskList">
-            <!-- tasks populated by script.js -->
+            <!-- tasks populated by script.js — now flex column will fully fill card height -->
           </ul>
         </div>
       </div>
@@ -465,5 +531,6 @@
 
 <!-- External script (preserves all functionality) -->
 <script src="script.js"></script>
+
 </body>
 </html>
