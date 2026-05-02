@@ -23,7 +23,7 @@
       color: #132e3c;
     }
 
-    /* Floating blur orbs — exact login theme */
+    /* Floating blur orbs – elegant login theme */
     .orb-1, .orb-2 {
       position: fixed;
       border-radius: 50%;
@@ -47,7 +47,7 @@
       background: radial-gradient(circle at 70% 60%, #d2ecf5, #7fb4ca);
     }
 
-    /* Main glass container — inherits login-container elegance */
+    /* Main glass container – refined */
     .glass-app-container {
       max-width: 1500px;
       width: 100%;
@@ -56,14 +56,14 @@
       backdrop-filter: blur(2px);
       border-radius: 2.5rem;
       box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.2), 0 4px 12px rgba(0, 0, 0, 0.05);
-      transition: box-shadow 0.3s ease, transform 0.2s;
+      transition: box-shadow 0.3s ease;
       padding: 2rem 2.2rem;
     }
     .glass-app-container:hover {
       box-shadow: 0 30px 55px -15px rgba(0, 0, 0, 0.25);
     }
 
-    /* Typography & heading gradient (exact from theme) */
+    /* Typography & gradient headings */
     h1, h2, h3, .gradient-heading, .section-head h3, .brand-logo h1, .tasks-header h3 {
       background: linear-gradient(120deg, #144e63, #267c6b);
       background-clip: text;
@@ -73,7 +73,7 @@
       letter-spacing: -0.01em;
     }
 
-    /* HEADER row */
+    /* Header – clean, neumorphic touch */
     .neo-header {
       display: flex;
       justify-content: space-between;
@@ -123,7 +123,7 @@
       margin-left: 6px;
     }
 
-    /* Stats block – clean integration */
+    /* Stats panel – minimal, crisp */
     .stats-wrapper {
       margin-bottom: 38px;
     }
@@ -141,7 +141,7 @@
       font-weight: 500;
     }
 
-    /* Dashboard grid (functional unchanged) */
+    /* Dashboard grid – adaptive */
     .dashboard-grid {
       display: grid;
       grid-template-columns: 1fr 1.1fr;
@@ -149,7 +149,7 @@
       align-items: stretch;
     }
 
-    /* cards: all inherit glass-feel but solid white inside = clean */
+    /* Cards: solid yet soft */
     #adminPanel, #memberPanel, .tasks-card {
       background: white;
       border-radius: 2rem;
@@ -157,20 +157,22 @@
       box-shadow: 0 12px 28px -10px rgba(0, 0, 0, 0.06);
       border: 1px solid #e4f0ea;
     }
-    #adminPanel {
-      padding: 26px;
-    }
-    #memberPanel {
-      padding: 26px;
+    #adminPanel, #memberPanel {
+      padding: 28px;
     }
     .tasks-card {
-      padding: 26px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-height: 0;
     }
     #adminPanel:hover, #memberPanel:hover, .tasks-card:hover {
       transform: translateY(-3px);
       box-shadow: 0 20px 32px -12px rgba(0, 0, 0, 0.12);
     }
 
+    /* Section headers with accent border */
     .section-head {
       display: flex;
       align-items: center;
@@ -188,6 +190,7 @@
       font-weight: 700;
     }
 
+    /* Admin blocks styling */
     .admin-block {
       margin-top: 28px;
       padding-top: 16px;
@@ -203,7 +206,7 @@
       gap: 8px;
     }
 
-    /* INPUTS & SELECT — exact login design: border-radius 36px, focus scale + ring */
+    /* Form inputs & selects – modern, rounded, focus ring */
     input, select, textarea {
       width: 100%;
       padding: 12px 20px;
@@ -223,7 +226,7 @@
       transform: scale(1.01);
     }
 
-    /* BUTTONS — exact gradient (#1d7b6e → #146157) 44px radius, hover lift */
+    /* Buttons – gradient, pill shape, lifting effect */
     button {
       background: linear-gradient(105deg, #1d7b6e, #146157);
       border: none;
@@ -249,13 +252,28 @@
       transform: translateY(1px);
     }
 
-    /* member panel highlight custom */
-    .member-highlight {
-      background: #f4fbf7;
-      border-radius: 2rem;
-      padding: 20px;
-      margin-bottom: 16px;
+    /* Member information placeholder – elegant loading state */
+    .member-placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background: #f8fafc;
+      border-radius: 1.5rem;
+      padding: 42px 20px;
+      color: #628a7c;
+      font-weight: 500;
+      flex-direction: column;
     }
+    .member-placeholder i {
+      font-size: 48px;
+      opacity: 0.6;
+    }
+    .member-placeholder span {
+      font-size: 1rem;
+    }
+
+    /* Custom stat rows (for dynamic content inside member panel) */
     .stat-row {
       display: flex;
       align-items: center;
@@ -268,18 +286,17 @@
       color: #2c9a88;
     }
 
-    /* task list - enhanced for scroll + flexible fill */
+    /* Task list – scrollable, clean spacing */
     #taskList {
       list-style: none;
       display: flex;
       flex-direction: column;
       gap: 16px;
-      /* scroll & fill remaining space */
       flex: 1;
       overflow-y: auto;
-      padding-right: 4px;
+      padding-right: 6px;
+      margin: 0;
       max-height: 100%;
-      margin-bottom: 0;
     }
     #taskList li {
       background: #fefefe;
@@ -294,7 +311,7 @@
       transform: translateX(6px);
     }
 
-    /* links style */
+    /* Links style */
     a {
       color: #1c7e6f;
       text-decoration: none;
@@ -306,7 +323,45 @@
       border-bottom-color: #0e5b4f;
     }
 
-    /* responsive breakpoints (560px, 420px) */
+    /* Right column stack – perfect vertical fill */
+    .right-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      height: 100%;
+    }
+    #memberPanel {
+      flex-shrink: 0;
+    }
+    /* Ensure tasks-card fills remaining height */
+    .tasks-card {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 250px;
+    }
+    .tasks-header {
+      flex-shrink: 0;
+      margin-bottom: 24px;
+    }
+
+    /* Task list custom scrollbar */
+    #taskList::-webkit-scrollbar {
+      width: 6px;
+    }
+    #taskList::-webkit-scrollbar-track {
+      background: #eef3f0;
+      border-radius: 10px;
+    }
+    #taskList::-webkit-scrollbar-thumb {
+      background: #b9cfc4;
+      border-radius: 10px;
+    }
+    #taskList::-webkit-scrollbar-thumb:hover {
+      background: #93b7a8;
+    }
+
+    /* Responsive breakpoints (560px, 420px) – untouched logic but polished */
     @media (max-width: 1000px) {
       .dashboard-grid {
         grid-template-columns: 1fr;
@@ -369,76 +424,21 @@
       background: #e0ede8;
     }
 
-    /* ========== ADDITIONAL STYLES: Member Workspace & All Tasks FULL BODY VERTICAL FILL ========== */
-    /* Right column container becomes a flexible column that matches full height of left card */
-    .right-stack {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      gap: 0;               /* preserve exact original spacing (no extra gap added) */
-    }
-
-    /* Allow tasks-card to consume ALL remaining vertical space so that Member Workspace
-       and All Tasks together fill the whole parent height — making both sections fully stretch */
-    .tasks-card {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      /* inner spacing and overflow handling to make All Tasks fill body */
-    }
-
-    /* Make the header inside tasks-card fixed, and task list scrollable in remaining area */
-    .tasks-header {
-      flex-shrink: 0;
-      margin-bottom: 24px;
-    }
-
-    /* Ensure the tasks list container uses all available height of the card */
-    .tasks-card ul {
-      flex: 1;
-      overflow-y: auto;
-      margin-top: 0;
-    }
-
-    /* Additionally, memberPanel naturally stays at top, tasks-card fills all leftover space
-       → Member Workspace stays compact, All Tasks card expands to fill remaining body region.
-       Both sections visually fill the entire right column height (identical to admin panel height) */
-    #memberPanel {
-      flex-shrink: 0;
-      /* no extra margin-bottom, stays as in original */
-    }
-
-    /* Ensure dashboard grid rows stretch equally without any whitespace at bottom */
-    .dashboard-grid {
-      align-items: stretch;
-    }
-
-    /* Keep scrollbar comfortable inside tasks list */
-    #taskList::-webkit-scrollbar {
-      width: 6px;
-    }
-    #taskList::-webkit-scrollbar-track {
-      background: #eef3f0;
-      border-radius: 10px;
-    }
-    #taskList::-webkit-scrollbar-thumb {
-      background: #b9cfc4;
-      border-radius: 10px;
-    }
-    #taskList::-webkit-scrollbar-thumb:hover {
-      background: #93b7a8;
+    /* Soft loading / member container inner refinement */
+    .member-dynamic-content {
+      width: 100%;
     }
   </style>
 </head>
 <body>
 
-<!-- ORBS EXACT login theme -->
+<!-- Ambient orbs -->
 <div class="orb-1"></div>
 <div class="orb-2"></div>
 
 <div class="glass-app-container">
   <div class="flow-dash">
-    <!-- HEADER -->
+    <!-- HEADER area -->
     <div class="neo-header">
       <div class="brand-logo">
         <i class="fas fa-cubes"></i>
@@ -451,16 +451,14 @@
       </div>
     </div>
 
-    <!-- STATS (preserved ID) -->
+    <!-- Stats panel (fully dynamic from script) -->
     <div class="stats-wrapper">
-      <div id="stats">
-        <!-- stats injected by script.js -->
-      </div>
+      <div id="stats"></div>
     </div>
 
-    <!-- MAIN GRID functional unchanged, design refreshed -->
+    <!-- MAIN GRID: left admin, right column (member + tasks) -->
     <div class="dashboard-grid">
-      <!-- LEFT: Admin Panel -->
+      <!-- LEFT: Admin Panel (unchanged functionality) -->
       <div id="adminPanel">
         <div class="section-head">
           <i class="fas fa-shield-alt"></i>
@@ -486,20 +484,30 @@
         </div>
       </div>
 
-      <!-- RIGHT COLUMN: member + tasks (both will fill full vertical space) -->
+      <!-- RIGHT COLUMN: Member Workspace + All Tasks (clean vertical fill) -->
       <div class="right-stack">
+        <!-- Member panel: script will inject user-specific data (placeholder shown until JS loads) -->
         <div id="memberPanel">
           <div class="section-head" style="margin-bottom: 16px;">
             <i class="fas fa-users"></i>
-            
+            <h3>Member Workspace</h3>
+          </div>
+          <div id="memberDynamicArea" class="member-placeholder">
+            <i class="fas fa-spinner fa-pulse"></i>
+            <span>Loading your workspace...</span>
+          </div>
+        </div>
 
+        <!-- All Tasks Card – fully scrollable, fills remaining height -->
         <div class="tasks-card">
-          <div class="tasks-header" style="display: flex; align-items: center; gap: 12px; border-left: 5px solid #2c9a88; padding-left: 20px; margin-bottom: 24px;">
-            <i class="fas fa-list-check" style="font-size: 28px; color:#2c9a88;"></i>
-            <h3 style="background: linear-gradient(120deg, #144e63, #267c6b); background-clip: text; -webkit-background-clip: text; color: transparent;">All Tasks</h3>
+          <div class="tasks-header">
+            <div style="display: flex; align-items: center; gap: 12px; border-left: 5px solid #2c9a88; padding-left: 20px;">
+              <i class="fas fa-list-check" style="font-size: 28px; color:#2c9a88;"></i>
+              <h3 style="background: linear-gradient(120deg, #144e63, #267c6b); background-clip: text; -webkit-background-clip: text; color: transparent;">All Tasks</h3>
+            </div>
           </div>
           <ul id="taskList">
-            <!-- tasks populated by script.js — now flex column will fully fill card height -->
+            <!-- tasks injected by script.js -->
           </ul>
         </div>
       </div>
@@ -507,8 +515,9 @@
   </div>
 </div>
 
-<!-- External script (preserves all functionality) -->
+<!-- External script (full original behavior preserved) -->
 <script src="script.js"></script>
+
 
 </body>
 </html>
