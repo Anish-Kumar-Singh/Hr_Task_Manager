@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Flowspace · Join the future of teamwork</title>
-  <!-- Google Fonts: Inter + modern system fallback -->
+  <title>Flowspace | Unified Dashboard</title>
+  <!-- Google Fonts Inter + Font Awesome 6 -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     * {
       margin: 0;
@@ -15,302 +16,454 @@
 
     body {
       background: radial-gradient(ellipse at 20% 30%, #f4f9ff, #d9e9fa);
-      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1.5rem;
+      padding: 32px 28px;
       position: relative;
-      isolation: isolate;
+      color: #132e3c;
     }
 
-    /* abstract organic shapes — pure aesthetic */
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background-image: radial-gradient(circle at 15% 40%, rgba(45, 125, 145, 0.08) 0%, transparent 40%),
-                        radial-gradient(circle at 85% 70%, rgba(80, 165, 135, 0.08) 0%, transparent 45%);
-      pointer-events: none;
-      z-index: 0;
-    }
-
+    /* Floating blur orbs — exact login theme */
     .orb-1, .orb-2 {
       position: fixed;
       border-radius: 50%;
       filter: blur(70px);
-      opacity: 0.35;
-      z-index: 0;
+      z-index: -1;
       pointer-events: none;
+      opacity: 0.45;
     }
     .orb-1 {
-      width: 50vmax;
-      height: 50vmax;
-      background: radial-gradient(circle, #6ac1cf, #2c7f96);
-      top: -20vh;
-      right: -15vw;
+      width: 55vw;
+      height: 55vw;
+      top: -15vh;
+      left: -15vw;
+      background: radial-gradient(circle at 30% 40%, #b3defa, #6aa9c9);
     }
     .orb-2 {
-      width: 45vmax;
-      height: 45vmax;
-      background: radial-gradient(circle, #97cfb0, #469a82);
+      width: 60vw;
+      height: 60vw;
       bottom: -25vh;
-      left: -10vw;
+      right: -20vw;
+      background: radial-gradient(circle at 70% 60%, #d2ecf5, #7fb4ca);
     }
 
-    /* clean centered card — only form panel now, brand removed */
-    .form-container {
-      max-width: 560px;
+    /* Main glass container — inherits login-container elegance */
+    .glass-app-container {
+      max-width: 1500px;
       width: 100%;
-      background: rgba(255, 255, 255, 0.98);
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.96);
       backdrop-filter: blur(2px);
       border-radius: 2.5rem;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(156, 200, 210, 0.2);
-      overflow: hidden;
-      transition: transform 0.25s ease, box-shadow 0.3s ease;
-      position: relative;
-      z-index: 2;
+      box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.2), 0 4px 12px rgba(0, 0, 0, 0.05);
+      transition: box-shadow 0.3s ease, transform 0.2s;
+      padding: 2rem 2.2rem;
+    }
+    .glass-app-container:hover {
+      box-shadow: 0 30px 55px -15px rgba(0, 0, 0, 0.25);
     }
 
-    .form-container:hover {
-      box-shadow: 0 32px 60px -18px rgba(0, 0, 0, 0.25);
-    }
-
-    /* unified form panel — all fields, IDs, onclick preserved */
-    .form-panel {
-      padding: 2.8rem 2.5rem;
-      background: #ffffff;
-    }
-
-    .form-header {
-      margin-bottom: 2rem;
-      text-align: left;
-    }
-
-    .form-header h1 {
-      font-size: 2.2rem;
-      font-weight: 800;
+    /* Typography & heading gradient (exact from theme) */
+    h1, h2, h3, .gradient-heading, .section-head h3, .brand-logo h1, .tasks-header h3 {
       background: linear-gradient(120deg, #144e63, #267c6b);
       background-clip: text;
       -webkit-background-clip: text;
       color: transparent;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.4rem;
-    }
-
-    .form-header p {
-      font-size: 0.85rem;
-      color: #5f7f94;
-      border-left: 3px solid #3e9f8b;
-      padding-left: 0.7rem;
-      font-weight: 460;
-    }
-
-    /* input groups — IDs untouched: name, email, password, role */
-    .input-row {
-      margin-bottom: 1.35rem;
-    }
-
-    .input-row label {
-      display: block;
-      font-size: 0.7rem;
       font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.4px;
-      color: #2c6b64;
-      margin-bottom: 0.35rem;
+      letter-spacing: -0.01em;
     }
 
-    input, select {
+    /* HEADER row */
+    .neo-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(4px);
+      border-radius: 80px;
+      padding: 12px 28px;
+      margin-bottom: 32px;
+      border: 1px solid rgba(38, 124, 107, 0.2);
+    }
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .brand-logo i {
+      font-size: 40px;
+      background: linear-gradient(135deg, #1f6e58, #2c9a88);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+    .brand-logo h1 {
+      font-size: 2rem;
+      font-weight: 800;
+    }
+    .role-pill {
+      background: #ebf4fa;
+      padding: 6px 24px;
+      border-radius: 60px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 500;
+      color: #1d6f5c;
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,0.02), 0 2px 8px rgba(0,0,0,0.02);
+    }
+    #roleDisplay {
+      font-weight: 700;
+      background: #dcfce7;
+      padding: 4px 16px;
+      border-radius: 40px;
+      color: #146b3a;
+      margin-left: 6px;
+    }
+
+    /* Stats block – clean integration */
+    .stats-wrapper {
+      margin-bottom: 38px;
+    }
+    #stats {
+      background: linear-gradient(115deg, #ffffff, #f8fefb);
+      border-radius: 40px !important;
+      padding: 20px 28px !important;
+      display: flex !important;
+      flex-wrap: wrap;
+      gap: 24px;
+      align-items: center;
+      justify-content: flex-start;
+      box-shadow: 0 10px 20px -8px rgba(0, 0, 0, 0.05);
+      border: 1px solid #cde3dc !important;
+      font-weight: 500;
+    }
+
+    /* Dashboard grid (functional unchanged) */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 32px;
+      align-items: start;
+    }
+
+    /* cards: all inherit glass-feel but solid white inside = clean */
+    #adminPanel, #memberPanel, .tasks-card {
+      background: white;
+      border-radius: 2rem;
+      transition: all 0.2s ease;
+      box-shadow: 0 12px 28px -10px rgba(0, 0, 0, 0.06);
+      border: 1px solid #e4f0ea;
+    }
+    #adminPanel {
+      padding: 26px;
+    }
+    #memberPanel {
+      padding: 26px;
+    }
+    .tasks-card {
+      padding: 26px;
+    }
+    #adminPanel:hover, #memberPanel:hover, .tasks-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 32px -12px rgba(0, 0, 0, 0.12);
+    }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-left: 5px solid #2c9a88;
+      padding-left: 20px;
+      margin-bottom: 28px;
+    }
+    .section-head i {
+      font-size: 28px;
+      color: #2c9a88;
+    }
+    .section-head h3 {
+      font-size: 1.6rem;
+      font-weight: 700;
+    }
+
+    .admin-block {
+      margin-top: 28px;
+      padding-top: 16px;
+      border-top: 2px dotted #deeae5;
+    }
+    .admin-block h4 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #1b5e4c;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* INPUTS & SELECT — exact login design: border-radius 36px, focus scale + ring */
+    input, select, textarea {
       width: 100%;
-      padding: 0.85rem 1.2rem;
+      padding: 12px 20px;
       font-size: 0.95rem;
       font-family: 'Inter', monospace;
       background: #ffffff;
-      border: 1.5px solid #e2edf2;
+      border: 1.5px solid #d4e2e8;
       border-radius: 36px;
       transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
       outline: none;
-      color: #1e3a4a;
-      font-weight: 500;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+      margin-bottom: 18px;
+      color: #1b3f4a;
     }
-
-    input:focus, select:focus {
+    input:focus, select:focus, textarea:focus {
       border-color: #2c9a88;
-      box-shadow: 0 4px 14px rgba(44, 154, 136, 0.15), 0 0 0 4px rgba(44, 154, 136, 0.08);
+      box-shadow: 0 0 0 4px rgba(44, 154, 136, 0.2);
       transform: scale(1.01);
     }
 
-    input::placeholder {
-      color: #bdd3df;
-      font-weight: 440;
-    }
-
-    /* custom select arrow */
-    select {
-      appearance: none;
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="%233e9f8b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');
-      background-repeat: no-repeat;
-      background-position: right 1.2rem center;
-      background-size: 1rem;
-      cursor: pointer;
-    }
-
-    /* button — preserves onclick="signup()" exactly */
-    .signup-btn {
-      background: linear-gradient(105deg, #1d7b6e 0%, #146157 100%);
+    /* BUTTONS — exact gradient (#1d7b6e → #146157) 44px radius, hover lift */
+    button {
+      background: linear-gradient(105deg, #1d7b6e, #146157);
       border: none;
       color: white;
-      font-weight: 700;
-      font-size: 1rem;
-      padding: 0.9rem 1.5rem;
-      width: 100%;
+      font-weight: 600;
+      padding: 12px 32px;
       border-radius: 44px;
       cursor: pointer;
       font-family: 'Inter', sans-serif;
       transition: all 0.25s ease;
-      margin: 0.5rem 0 1rem 0;
-      box-shadow: 0 8px 18px rgba(25, 111, 107, 0.25);
-      letter-spacing: 0.2px;
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      justify-content: center;
-      gap: 8px;
+      gap: 10px;
+      font-size: 0.9rem;
+      box-shadow: 0 6px 14px rgba(21, 87, 70, 0.2);
     }
-
-    .signup-btn:hover {
-      background: linear-gradient(105deg, #146157, #0d4941);
+    button:hover {
+      background: linear-gradient(105deg, #156257, #0f4e41);
       transform: translateY(-2px);
-      box-shadow: 0 12px 22px rgba(25, 111, 107, 0.35);
+      box-shadow: 0 14px 24px rgba(29, 123, 110, 0.3);
     }
-
-    .signup-btn:active {
+    button:active {
       transform: translateY(1px);
     }
 
-    .legal-note {
-      text-align: center;
-      font-size: 0.68rem;
-      color: #6f95ab;
-      font-weight: 500;
-      margin-top: 0.2rem;
+    /* member panel highlight custom */
+    .member-highlight {
+      background: #f4fbf7;
+      border-radius: 2rem;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+    .stat-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 12px 0;
+      font-size: 0.9rem;
+    }
+    .stat-row i {
+      width: 28px;
+      color: #2c9a88;
     }
 
-    .signin-redirect {
-      text-align: center;
-      margin-top: 1.25rem;
-      font-size: 0.85rem;
-      color: #4a758b;
+    /* task list */
+    #taskList {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
     }
-
-    .signin-redirect a {
-      color: #1c7e6f;
-      text-decoration: none;
-      font-weight: 700;
-      border-bottom: 1.5px solid rgba(28, 126, 111, 0.25);
+    #taskList li {
+      background: #fefefe;
+      border-radius: 28px;
+      padding: 18px 24px;
+      border: 1px solid #e7f0ec;
       transition: all 0.2s;
     }
-
-    .signin-redirect a:hover {
-      color: #0c5c50;
-      border-bottom-color: #0c5c50;
+    #taskList li:hover {
+      background: #fafefe;
+      border-color: #cce4db;
+      transform: translateX(6px);
     }
 
-    /* responsive */
-    @media (max-width: 560px) {
+    /* links style */
+    a {
+      color: #1c7e6f;
+      text-decoration: none;
+      border-bottom: 1.5px solid #b9ddd2;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    a:hover {
+      color: #0e5b4f;
+      border-bottom-color: #0e5b4f;
+    }
+
+    /* responsive breakpoints (560px, 420px) */
+    @media (max-width: 1000px) {
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+      .glass-app-container {
+        padding: 1.5rem;
+      }
       body {
+        padding: 20px;
+      }
+    }
+    @media (max-width: 560px) {
+      .glass-app-container {
         padding: 1rem;
+        border-radius: 2rem;
       }
-      .form-panel {
-        padding: 2rem 1.5rem;
+      .section-head h3 {
+        font-size: 1.4rem;
       }
-      .form-header h1 {
-        font-size: 1.8rem;
+      .neo-header {
+        flex-direction: column;
+        text-align: center;
+        border-radius: 48px;
+        padding: 16px;
       }
-      input, select {
-        padding: 0.7rem 1rem;
+      button {
+        width: 100%;
+        justify-content: center;
       }
-      .signup-btn {
-        padding: 0.75rem;
+      #stats {
+        flex-direction: column;
+        align-items: flex-start;
       }
     }
-
     @media (max-width: 420px) {
-      .form-panel {
-        padding: 1.5rem 1.2rem;
+      .glass-app-container {
+        padding: 0.9rem;
+      }
+      .brand-logo h1 {
+        font-size: 1.5rem;
+      }
+      .section-head {
+        padding-left: 12px;
+      }
+      input, select, button {
+        font-size: 0.85rem;
       }
     }
 
-    /* entrance animation */
-    .form-container {
-      animation: cardLift 0.5s cubic-bezier(0.15, 0.9, 0.25, 1);
+    .icon-text {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
     }
-
-    @keyframes cardLift {
-      0% {
-        opacity: 0;
-        transform: translateY(28px) scale(0.98);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
+    hr {
+      margin: 12px 0;
+      border: none;
+      height: 1px;
+      background: #e0ede8;
     }
   </style>
 </head>
 <body>
 
+<!-- ORBS EXACT login theme -->
 <div class="orb-1"></div>
 <div class="orb-2"></div>
 
-<div class="form-container">
-  <!-- RIGHT (now only) FORM PANEL: all original IDs, select options, button onclick, sign-in link preserved -->
-  <div class="form-panel">
-    <div class="form-header">
-      <h1>Create account</h1>
-      <p>Start collaborating — free, no strings attached</p>
+<div class="glass-app-container">
+  <div class="flow-dash">
+    <!-- HEADER -->
+    <div class="neo-header">
+      <div class="brand-logo">
+        <i class="fas fa-cubes"></i>
+        <h1>Flowspace</h1>
+      </div>
+      <div class="role-pill">
+        <i class="fas fa-user-astronaut"></i>
+        <span>Role:</span>
+        <span id="roleDisplay">—</span>
+      </div>
     </div>
 
-    <!-- Full name field: original ID="name" -->
-    <div class="input-row">
-      <label for="name">Full name</label>
-      <input id="name" type="text" placeholder="e.g., Taylor Chen" autocomplete="name">
+    <!-- STATS (preserved ID) -->
+    <div class="stats-wrapper">
+      <div id="stats">
+        <!-- stats injected by script.js -->
+      </div>
     </div>
 
-    <!-- Email field: original ID="email" -->
-    <div class="input-row">
-      <label for="email">Email address</label>
-      <input id="email" type="email" placeholder="hello@flowspace.com" autocomplete="email">
+    <!-- MAIN GRID functional unchanged, design refreshed -->
+    <div class="dashboard-grid">
+      <!-- LEFT: Admin Panel -->
+      <div id="adminPanel">
+        <div class="section-head">
+          <i class="fas fa-shield-alt"></i>
+          <h3>Admin Controls</h3>
+        </div>
+        <div class="admin-block">
+          <h4><i class="fas fa-folder-plus"></i> Create Project</h4>
+          <input id="projectName" placeholder="Project name" autocomplete="off">
+          <button onclick="createProject()"><i class="fas fa-plus-circle"></i> Create Project</button>
+        </div>
+        <div class="admin-block">
+          <h4><i class="fas fa-tasks"></i> Create Task</h4>
+          <input id="taskTitle" placeholder="Task Title">
+          <input id="description" placeholder="Task Description">
+          <select id="assignedTo">
+            <option value="">Select User</option>
+          </select>
+          <select id="projectId">
+            <option value="">Select Project</option>
+          </select>
+          <input type="date" id="deadline">
+          <button onclick="createTask()"><i class="fas fa-check-double"></i> Add Task</button>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN: member + tasks -->
+      <div class="right-stack">
+        <div id="memberPanel">
+          <div class="section-head" style="margin-bottom: 16px;">
+            <i class="fas fa-users"></i>
+            <h3>Member Workspace</h3>
+          </div>
+          <div class="member-content">
+            <div class="member-highlight">
+              <div class="stat-row">
+                <i class="fas fa-chalkboard-user"></i>
+                <span><strong>Your collaboration hub</strong> — view tasks assigned to you below</span>
+              </div>
+              <div class="stat-row">
+                <i class="fas fa-chart-line"></i>
+                <span>Track project progress & deadlines in real time</span>
+              </div>
+              <div class="stat-row">
+                <i class="fas fa-bell"></i>
+                <span>Stay updated with team activity</span>
+              </div>
+            </div>
+            <div class="stat-row" style="justify-content: flex-start; gap: 12px; margin-top: 8px;">
+              <i class="fas fa-flag-checkered"></i>
+              <span class="icon-text">Active tasks appear in <strong>All Tasks</strong></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tasks-card">
+          <div class="tasks-header" style="display: flex; align-items: center; gap: 12px; border-left: 5px solid #2c9a88; padding-left: 20px; margin-bottom: 24px;">
+            <i class="fas fa-list-check" style="font-size: 28px; color:#2c9a88;"></i>
+            <h3 style="background: linear-gradient(120deg, #144e63, #267c6b); background-clip: text; -webkit-background-clip: text; color: transparent;">All Tasks</h3>
+          </div>
+          <ul id="taskList">
+            <!-- tasks populated by script.js -->
+          </ul>
+        </div>
+      </div>
     </div>
-
-    <!-- Password field: original ID="password" -->
-    <div class="input-row">
-      <label for="password">Password</label>
-      <input id="password" type="password" placeholder="··········" autocomplete="new-password">
-    </div>
-
-    <!-- Workspace role: original ID="role", Member/Admin exactly as required -->
-    <div class="input-row">
-      <label for="role">Workspace role</label>
-      <select id="role">
-        <option value="Member">Member</option>
-        <option value="Admin">Admin</option>
-      </select>
-    </div>
-
-    <!-- SIGNUP BUTTON: unmodified onclick="signup()" triggers same external script logic -->
-    <button class="signup-btn" onclick="signup()">Sign up →</button>
-
-    <div class="legal-note">By joining, you agree to our Terms of Service & Privacy Policy.</div>
-    <div class="signin-redirect"><p>Don't have an account? </p><a href="/client/index.html">Sign in</a></div>
   </div>
 </div>
 
-<!-- external script.js — keeps all original validation, registration logic untouched -->
+<!-- External script (preserves all functionality) -->
 <script src="script.js"></script>
-
-
 </body>
 </html>
